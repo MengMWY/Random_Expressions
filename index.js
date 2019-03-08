@@ -4,15 +4,15 @@ const N_EQ = 4;        //Number of mathematical expressions
  
 main();     //Call the function main
 
-//String containig the text for the file
-var fileText = '1756138\n' + expressions.toString().split(',').join('\n') + '\n';
+//Function that print a string into a file
+function printIntoFile(fileText){
+    fs.writeFile('./results.txt', fileText, (err) => {      //Print the text into the file
+        if (!err) console.log('File successfully saved');
+        else console.log('Error while saving file...');         //Error message
+    });
+}
  
-fs.writeFile('./results.txt', fileText, (err) => {      //Print the text into the file
-    if (!err) console.log('File successfully saved');
-    else console.log('Error while saving file...');         //Error message
-});
- 
-//Function that generate random number within an interval
+//Function that generate random number within a range
 function generateRandomValue(min, max) {
     return Math.floor(Math.random() * (max + 1 - min) + min);
 }
@@ -61,4 +61,7 @@ function main() {
  
         expressions[i] = generateExpression(factors, operations);
     }
+
+    var fileText = '1756138\n' + expressions.toString().split(',').join('\n') + '\n';       //String containig the text for the file
+    printIntoFile(fileText);
 }
